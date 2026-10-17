@@ -1,0 +1,7 @@
+{
+  "nav": { "home": "Home", "cars": "Cars", "about": "About", "contact": "Contact" },
+  "hero": { "title": "CARZONE", "subtitle": "Modern cars for those who value speed, comfort and style.", "btn": "View cars" },
+  "cars": { "title": "Popular cars", "search": "Search cars...", "filter": { "all": "All cars", "sport": "Sport", "sedan": "Sedan", "suv": "SUV" } },
+  "auth": { "login": "Login", "register": "Register", "email": "Email", "password": "Password" },
+  "profile": { "title": "My Account" }
+}

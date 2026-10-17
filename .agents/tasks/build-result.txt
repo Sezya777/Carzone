@@ -1,0 +1,20 @@
+Build run after applying review fixes for favorites/cart Firestore migration.
+
+Command: npm run build
+Exit code: 0
+
+Output:
+> project@0.0.0 build
+> vite build
+
+vite v8.3.2 building client environment for production...
+✓ 701 modules transformed.
+
+dist/index.html                     0.45 kB │ gzip:   0.29 kB
+dist/assets/index-DylNF3mN.css     51.22 kB │ gzip:   9.41 kB
+dist/assets/index-DR_CNLGv.js   1,382.24 kB │ gzip: 413.37 kB
+
+(!) Some chunks are larger than 500 kB after minification. (pre-existing warning, unrelated to these changes)
+✓ built in 1.27s
+
+BUILD SUCCEEDED — no TypeScript/ESLint/build errors.
