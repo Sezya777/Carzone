@@ -1,12 +1,16 @@
 import { useState } from 'react'
 
 export default function ReviewForm({ onSubmit, isSubmitting }) {
-  const [form, setForm] = useState({ author: '', rating: 5, text: '' })
+  const [form, setForm] = useState({ author: '', rating: 1, text: '' })
+  const currentRating = Number(form.rating) || 1
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    onSubmit({ author: form.author.trim() || 'Аноним', rating: form.rating, text: form.text.trim() })
-    setForm({ author: '', rating: 5, text: '' })
+    const cleanText = form.text.trim()
+    if (!cleanText) return
+
+    onSubmit({ author: form.author.trim() || 'Аноним', rating: currentRating, text: cleanText })
+    setForm({ author: '', rating: 1, text: '' })
   }
 
   return (
@@ -18,18 +22,25 @@ export default function ReviewForm({ onSubmit, isSubmitting }) {
         placeholder="Ваше имя"
       />
 
-      {/* Звёздочки */}
       <div className="star-rating">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <button
-            key={star}
-            type="button"
-            className={`star-btn${star <= form.rating ? ' active' : ''}`}
-            onClick={() => setForm((p) => ({ ...p, rating: star }))}
-          >
-            ★
-          </button>
-        ))}
+        <label className="review-rating-label">Оценка:</label>
+        <div className="star-rating-buttons" role="radiogroup" aria-label="Оценка">
+          {Array.from({ length: 5 }, (_, index) => {
+            const value = index + 1
+            return (
+              <button
+                key={value}
+                type="button"
+                className={value <= currentRating ? 'star-btn active' : 'star-btn'}
+                onClick={() => setForm((p) => ({ ...p, rating: Number(value) }))}
+                aria-label={`Оценка ${value}`}
+                aria-pressed={value === currentRating}
+              >
+                ★
+              </button>
+            )
+          })}
+        </div>
       </div>
 
       <textarea

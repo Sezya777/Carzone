@@ -7,6 +7,7 @@ const adminNav = [
   { label: 'Авто', to: '/admin/cars' },
   { label: 'Пользователи', to: '/admin/users' },
   { label: 'Заказы', to: '/admin/orders' },
+  { label: 'Отзывы', to: '/admin/reviews' },
 ]
 
 export default function AdminLayout() {

@@ -7,6 +7,7 @@ import AdminDashboard from './components/AdminDashboard'
 import AdminCarsPage from './components/AdminCarsPage'
 import AdminUsersPage from './components/AdminUsersPage'
 import AdminOrdersPage from './components/AdminOrdersPage'
+import AdminReviewsPage from './components/AdminReviewsPage'
 import UserCabinet from './components/UserCabinet'
 import ProtectedRoute from './components/ProtectedRoute'
 import CarsPage from './pages/CarsPage'
@@ -94,6 +95,10 @@ export const router = createHashRouter([
           {
             path: 'orders',
             element: <AdminOrdersPage />,
+          },
+          {
+            path: 'reviews',
+            element: <AdminReviewsPage />,
           },
         ],
       },

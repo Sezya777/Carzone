@@ -2108,8 +2108,23 @@ th {
 /* ===== STAR RATING ===== */
 .star-rating {
   display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 0;
+  flex-wrap: wrap;
+}
+
+.review-rating-label {
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  min-width: 80px;
+}
+
+.star-rating-buttons {
+  display: flex;
+  align-items: center;
   gap: 4px;
-  margin: 4px 0;
 }
 
 .star-btn {
