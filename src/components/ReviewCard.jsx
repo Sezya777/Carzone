@@ -1,4 +1,4 @@
-export default function ReviewCard({ review, onDelete }) {
+export default function ReviewCard({ review }) {
   const safeRating = Math.min(5, Math.max(1, Number(review?.rating) || 0))
   const stars = Array.from({ length: 5 }, (_, i) => (
     <span key={i} className={i < safeRating ? 'star filled' : 'star'}>★</span>
@@ -16,11 +16,6 @@ export default function ReviewCard({ review, onDelete }) {
       <p className="review-text">{review.text}</p>
       <div className="review-footer">
         <span className="review-date">{date}</span>
-        {onDelete && (
-          <button type="button" className="ghost-btn review-delete-btn" onClick={() => onDelete(review.id)}>
-            Удалить
-          </button>
-        )}
       </div>
     </div>
   )
