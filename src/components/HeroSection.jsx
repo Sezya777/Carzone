@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 export default function HeroSection() {
@@ -18,9 +19,9 @@ export default function HeroSection() {
         <p className="small-title">{t('hero.title')}</p>
         <h1>CARZONE</h1>
         <p className="hero-text">{t('hero.subtitle')}</p>
-        <a href="/cars" className="hero-btn">
+        <Link to="/cars" className="hero-btn">
           {t('hero.btn')}
-        </a>
+        </Link>
       </div>
     </section>
   )

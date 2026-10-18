@@ -35,8 +35,6 @@ export default function CarsPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [category, setCategory] = useState('all')
-  const [priceRange, setPriceRange] = useState(200000)
-  const [maxPrice, setMaxPrice] = useState(200000)
   const [sortBy, setSortBy] = useState('default')
   const [selectedCar, setSelectedCar] = useState(null)
   const { favorites, cart, toggleFavorite, toggleCart } = useUserData()
@@ -58,20 +56,10 @@ export default function CarsPage() {
         .map((car, index) => normalizeCar(car, index + firestoreCars.length))
         .filter((car) => !firestoreCars.some((item) => String(item.name).toLowerCase() === String(car.name).toLowerCase()))
 
-      const mergedCars = [...firestoreCars, ...uniqueFallback]
-      const nextMaxPrice = mergedCars.reduce((max, car) => Math.max(max, parsePrice(car.price)), 200000)
-
-      setCars(mergedCars)
-      setMaxPrice(nextMaxPrice)
-      setPriceRange((current) => (current > nextMaxPrice ? nextMaxPrice : current))
+      setCars([...firestoreCars, ...uniqueFallback])
       setIsLoading(false)
     }, () => {
-      const fallbackCarsNormalized = fallbackCars.map((car, index) => normalizeCar(car, index))
-      const nextMaxPrice = fallbackCarsNormalized.reduce((max, car) => Math.max(max, parsePrice(car.price)), 200000)
-
-      setCars(fallbackCarsNormalized)
-      setMaxPrice(nextMaxPrice)
-      setPriceRange((current) => (current > nextMaxPrice ? nextMaxPrice : current))
+      setCars(fallbackCars.map((car, index) => normalizeCar(car, index)))
       setIsLoading(false)
     })
     return () => unsub()
@@ -83,8 +71,7 @@ export default function CarsPage() {
       const matchesQuery = (normalizedCar.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
         (normalizedCar.brand || '').toLowerCase().includes(searchTerm.toLowerCase())
       const matchesCategory = category === 'all' || normalizedCar.category === category
-      const matchesPrice = parsePrice(normalizedCar.price) <= priceRange
-      return matchesQuery && matchesCategory && matchesPrice
+      return matchesQuery && matchesCategory
     })
 
     switch (sortBy) {
@@ -105,7 +92,7 @@ export default function CarsPage() {
     }
 
     return result
-  }, [cars, searchTerm, category, priceRange, sortBy])
+  }, [cars, searchTerm, category, sortBy])
 
   return (
     <section className="cars-section" id="cars" style={{ minHeight: '80vh' }}>
@@ -119,9 +106,6 @@ export default function CarsPage() {
         onSearchChange={(e) => setSearchTerm(e.target.value)}
         category={category}
         onCategoryChange={(e) => setCategory(e.target.value)}
-        priceRange={priceRange}
-        maxPrice={maxPrice}
-        onPriceChange={(e) => setPriceRange(Number(e.target.value))}
         sortBy={sortBy}
         onSortChange={(e) => setSortBy(e.target.value)}
       />
