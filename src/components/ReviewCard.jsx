@@ -1,5 +1,5 @@
 export default function ReviewCard({ review }) {
-  const safeRating = Math.min(5, Math.max(1, Number(review?.rating) || 0))
+  const safeRating = Math.min(5, Math.max(1, Number(review?.rating) || 1))
   const stars = Array.from({ length: 5 }, (_, i) => (
     <span key={i} className={i < safeRating ? 'star filled' : 'star'}>★</span>
   ))

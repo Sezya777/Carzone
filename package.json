@@ -18,7 +18,8 @@
     "react-i18next": "^17.0.16",
     "react-redux": "^9.3.0",
     "react-router-dom": "^7.18.4",
-    "recharts": "^3.10.1"
+    "recharts": "^3.10.1",
+    "swiper": "^14.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

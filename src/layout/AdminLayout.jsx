@@ -1,4 +1,5 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../store/authSlice'
 
@@ -9,6 +10,16 @@ const adminNav = [
   { label: 'Заказы', to: '/admin/orders' },
   { label: 'Отзывы', to: '/admin/reviews' },
 ]
+
+function ScrollToTop() {
+  const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [location.pathname])
+
+  return null
+}
 
 export default function AdminLayout() {
   const dispatch = useDispatch()
@@ -22,6 +33,7 @@ export default function AdminLayout() {
 
   return (
     <div className="admin-shell">
+      <ScrollToTop />
       <aside className="admin-sidebar">
         {/* Заголовок */}
         <div className="admin-sidebar-header">

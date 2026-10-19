@@ -2,14 +2,15 @@ import { useState } from 'react'
 
 export default function ReviewForm({ onSubmit, isSubmitting }) {
   const [form, setForm] = useState({ author: '', rating: 1, text: '' })
-  const currentRating = Number(form.rating) || 1
+  const currentRating = Math.min(5, Math.max(1, Number(form.rating) || 1))
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const cleanText = form.text.trim()
     if (!cleanText) return
 
-    onSubmit({ author: form.author.trim() || 'Аноним', rating: currentRating, text: cleanText })
+    const safeRating = Math.min(5, Math.max(1, Number(form.rating) || 1))
+    onSubmit({ author: form.author.trim() || 'Аноним', rating: safeRating, text: cleanText })
     setForm({ author: '', rating: 1, text: '' })
   }
 

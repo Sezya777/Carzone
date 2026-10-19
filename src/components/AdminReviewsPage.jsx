@@ -32,6 +32,17 @@ export default function AdminReviewsPage() {
     }
   }
 
+  const handleDeleteAll = async () => {
+    if (reviews.length === 0) return
+    if (!window.confirm('Удалить все отзывы? Это действие нельзя отменить.')) return
+
+    try {
+      await Promise.all(reviews.map((review) => deleteDoc(doc(db, 'reviews', review.id))))
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
   return (
     <section className="admin-page">
       <div className="admin-header">
@@ -42,8 +53,13 @@ export default function AdminReviewsPage() {
       </div>
 
       <div className="panel-card">
-        <div className="panel-header">
+        <div className="panel-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
           <h3>Все отзывы ({reviews.length})</h3>
+          {reviews.length > 0 && (
+            <button type="button" className="ghost-btn" onClick={handleDeleteAll}>
+              Удалить все
+            </button>
+          )}
         </div>
 
         <div className="table-wrap">

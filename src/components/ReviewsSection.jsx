@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay } from 'swiper/modules'
 import { addDoc, collection, onSnapshot, orderBy, query as firestoreQuery, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 import ReviewCard from './ReviewCard'
 import ReviewForm from './ReviewForm'
+import 'swiper/css'
 
 export default function ReviewsSection() {
   const [reviews, setReviews] = useState([])
@@ -38,18 +41,43 @@ export default function ReviewsSection() {
     }
   }
 
+  const hasCarousel = reviews.length > 3
+
   return (
     <section className="reviews-section" id="reviews">
       <div className="section-title">
         <p>ОТЗЫВЫ</p>
         <h2>Что говорят клиенты</h2>
       </div>
-      <div className="reviews-grid">
-        {reviews.length === 0
-          ? <p className="empty-state">Пока нет отзывов. Будьте первым!</p>
-          : reviews.map((r) => <ReviewCard key={r.id} review={r} />)
-        }
-      </div>
+
+      {reviews.length === 0 ? (
+        <p className="empty-state">Пока нет отзывов. Будьте первым!</p>
+      ) : hasCarousel ? (
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={20}
+          slidesPerView={3}
+          breakpoints={{
+            0: { slidesPerView: 1 },
+            640: { slidesPerView: 2 },
+            980: { slidesPerView: 3 }
+          }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          loop
+          className="reviews-swiper"
+        >
+          {reviews.map((r) => (
+            <SwiperSlide key={r.id} className="reviews-swiper-slide">
+              <ReviewCard review={r} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        <div className="reviews-grid">
+          {reviews.map((r) => <ReviewCard key={r.id} review={r} />)}
+        </div>
+      )}
+
       <div className="reviews-form-wrap">
         <h3>Оставить отзыв</h3>
         <ReviewForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
